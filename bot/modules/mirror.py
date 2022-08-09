@@ -329,8 +329,8 @@ def _mirror(bot, message, isZip=False, extract=False, isQbit=False, isLeech=Fals
             botstart = f"http://t.me/{b_uname}"	
             buttons.buildbutton("Click Here to Start Me", f"{botstart}")	
             startwarn = f"Dear {uname},\n\n<b>I found that you haven't started me in PM (Private Chat) yet.</b>\n\n"
-                        f"From now on i will give link and leeched files in PM and log channel only"	
             message = sendMarkup(startwarn, bot, message, InlineKeyboardMarkup(buttons.build_menu(2)))	
+            Thread(target=auto_delete_message, args=(bot, message, message)).start()
             return
     if message.chat.type == 'private' and len(LEECH_LOG) == 0 and isLeech and MAX_LEECH_SIZE == 4194304000:
         text = f"Leech Log is Empty you Can't use bot in PM,\nYou Can use <i>/{BotCommands.AddleechlogCommand} chat_id </i> to add leech log."
