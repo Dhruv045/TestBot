@@ -332,6 +332,10 @@ def _mirror(bot, message, isZip=False, extract=False, isQbit=False, isLeech=Fals
                         f"From now on i will give link and leeched files in PM and log channel only"	
             message = sendMarkup(startwarn, bot, message, InlineKeyboardMarkup(buttons.build_menu(2)))	
             return
+    if message.chat.type == 'private' and len(LEECH_LOG) == 0 and isLeech and MAX_LEECH_SIZE == 4194304000:
+        text = f"Leech Log is Empty you Can't use bot in PM,\nYou Can use <i>/{BotCommands.AddleechlogCommand} chat_id </i> to add leech log."
+        sendMessage(text, bot, message)
+        return
     mesg = message.text.split('\n')
     message_args = mesg[0].split(maxsplit=1)
     name_args = mesg[0].split('|', maxsplit=1)
